@@ -31,7 +31,6 @@ export default function Footer() {
                 { to: "/", label: "Home" },
                 { to: "/about", label: "About" },
                 { to: "/services", label: "Services" },
-                { to: "/countries", label: "Countries" },
                 { to: "/contact", label: "Contact" },
               ].map((l) => (
                 <Link key={l.to} to={l.to} onClick={scrollToTop} className="text-sm text-cream/70 hover:text-gold transition-colors">
@@ -45,7 +44,9 @@ export default function Footer() {
             <h4 className="text-gold font-serif text-lg mb-4">Services</h4>
             <div className="flex flex-col gap-3">
               {["Career Counseling", "University Selection", "Visa Assistance", "Scholarship Guidance", "Accommodation Support"].map((s) => (
-                <span key={s} className="text-sm text-cream/70">{s}</span>
+                <Link key={s} to="/services" onClick={scrollToTop} className="text-sm text-cream/70 hover:text-gold transition-colors">
+                  {s}
+                </Link>
               ))}
             </div>
           </div>

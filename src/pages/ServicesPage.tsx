@@ -1,33 +1,31 @@
-import { BookOpen, GraduationCap, FileText, DollarSign, Plane, Home, PenTool, UserCheck, Languages, CreditCard, Building, Clock, Gift, Briefcase, Star, CheckCircle } from "lucide-react";
 import servicesHero from "@/assets/services-hero.jpg";
+import svcCareer from "@/assets/svc-career-counseling.jpg";
+import svcUniversity from "@/assets/svc-university.jpg";
+import svcApplication from "@/assets/svc-application.jpg";
+import svcScholarship from "@/assets/svc-scholarship.jpg";
+import svcVisa from "@/assets/svc-visa.jpg";
+import svcDeparture from "@/assets/svc-departure.jpg";
+import svcAccommodation from "@/assets/svc-accommodation.jpg";
+import svcAssignment from "@/assets/svc-assignment.jpg";
 import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const mainServices = [
-  { icon: UserCheck, title: "Career Counseling & Profile Evaluation", desc: "Comprehensive assessment of your academic profile, career goals, and the best study abroad options tailored to you." },
-  { icon: GraduationCap, title: "University Selection & Admission Guidance", desc: "Expert recommendations from 1000+ partner universities across 42 countries based on your unique profile." },
-  { icon: FileText, title: "Application & Documentation Support", desc: "End-to-end support with application essays, SOPs, LORs, and all required documentation." },
-  { icon: DollarSign, title: "Scholarship & Financial Guidance", desc: "Maximize your funding opportunities with personalized scholarship search and application assistance." },
-  { icon: Plane, title: "Visa Assistance & Documentation", desc: "Complete visa application support including documentation, mock interviews, and filing." },
-  { icon: Building, title: "Pre & Post Departure Assistance", desc: "From travel bookings to airport pickup, accommodation, and settling into your new country." },
-  { icon: Home, title: "Accommodation & Settlement Support", desc: "We help you find safe, affordable housing and adjust to life in your destination country." },
-  { icon: PenTool, title: "Assignment Support", desc: "Academic writing guidance and assignment support to help you excel in your studies abroad." },
+  { img: svcCareer, title: "Career Counseling & Profile Evaluation", desc: "Comprehensive assessment of your academic profile, career goals, and the best study abroad options tailored to you." },
+  { img: svcUniversity, title: "University Selection & Admission Guidance", desc: "Expert recommendations from 1000+ partner universities across 42 countries based on your unique profile." },
+  { img: svcApplication, title: "Application & Documentation Support", desc: "End-to-end support with application essays, SOPs, LORs, and all required documentation." },
+  { img: svcScholarship, title: "Scholarship & Financial Guidance", desc: "Maximize your funding opportunities with personalized scholarship search and application assistance." },
+  { img: svcVisa, title: "Visa Assistance & Documentation", desc: "Complete visa application support including documentation, mock interviews, and filing." },
+  { img: svcDeparture, title: "Pre & Post Departure Assistance", desc: "From travel bookings to airport pickup, accommodation, and settling into your new country." },
+  { img: svcAccommodation, title: "Accommodation & Settlement Support", desc: "We help you find safe, affordable housing and adjust to life in your destination country." },
+  { img: svcAssignment, title: "Assignment Support", desc: "Academic writing guidance and assignment support to help you excel in your studies abroad." },
 ];
 
 const additionalServices = [
-  { icon: UserCheck, label: "Profile Evaluation" },
-  { icon: Star, label: "Career Assessment" },
-  { icon: FileText, label: "Pre-visa Assistance" },
-  { icon: Languages, label: "Language Classes" },
-  { icon: CreditCard, label: "Free Processing for UK" },
-  { icon: Home, label: "Accommodation Support" },
-  { icon: Clock, label: "Part-time Assistance" },
-  { icon: Plane, label: "Free Flight Ticket" },
-  { icon: PenTool, label: "Assignment Assistance" },
-  { icon: Briefcase, label: "Post Departure Services" },
-  { icon: Gift, label: "Refer & Earn Program" },
-  { icon: BookOpen, label: "Study Material Support" },
+  "Profile Evaluation", "Career Assessment", "Pre-visa Assistance", "Language Classes",
+  "Free Processing for UK", "Accommodation Support", "Part-time Assistance", "Free Flight Ticket",
+  "Assignment Assistance", "Post Departure Services", "Refer & Earn Program", "Study Material Support",
 ];
 
 export default function ServicesPage() {
@@ -48,9 +46,8 @@ export default function ServicesPage() {
         <SectionHeading title="Additional Services" subtitle="Going the extra mile for our students" light />
         <div className="max-w-6xl mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
           {additionalServices.map((s) => (
-            <div key={s.label} className="glass-card-dark rounded-xl p-6 text-center hover-lift">
-              <s.icon className="text-gold mx-auto mb-3" size={28} />
-              <span className="text-sm text-cream font-medium">{s.label}</span>
+            <div key={s} className="glass-card-dark rounded-xl p-6 text-center hover-lift">
+              <span className="text-sm text-cream font-medium">{s}</span>
             </div>
           ))}
         </div>
@@ -59,18 +56,18 @@ export default function ServicesPage() {
   );
 }
 
-function MainServiceCard({ icon: Icon, title, desc, delay }: { icon: any; title: string; desc: string; delay: number }) {
+function MainServiceCard({ img, title, desc, delay }: { img: string; title: string; desc: string; delay: number }) {
   const { ref, isVisible } = useScrollAnimation();
   return (
     <div
       ref={ref}
-      className={`glass-card rounded-2xl p-8 flex gap-6 hover-lift transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+      className={`glass-card rounded-2xl overflow-hidden hover-lift transition-all duration-700 group ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
       style={{ transitionDelay: `${delay}ms` }}
     >
-      <div className="w-14 h-14 rounded-xl gold-gradient flex items-center justify-center shrink-0">
-        <Icon className="text-navy" size={24} />
+      <div className="aspect-[3/2] overflow-hidden">
+        <img src={img} alt={title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" width={960} height={640} />
       </div>
-      <div>
+      <div className="p-6">
         <h3 className="font-serif text-lg font-bold text-navy">{title}</h3>
         <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{desc}</p>
       </div>
