@@ -1,186 +1,5 @@
-// import servicesHero from "@/assets/services-hero.jpg";
-// import svcCareer from "@/assets/svc-career-counseling.jpg";
-// import svcUniversity from "@/assets/svc-university.jpg";
-// import svcApplication from "@/assets/svc-application.jpg";
-// import svcScholarship from "@/assets/svc-scholarship.jpg";
-// import svcVisa from "@/assets/svc-visa.jpg";
-// import svcDeparture from "@/assets/svc-departure.jpg";
-// import svcAccommodation from "@/assets/svc-accommodation.jpg";
-// import svcAssignment from "@/assets/svc-assignment.jpg";
-// import PageHero from "@/components/PageHero";
-// import SectionHeading from "@/components/SectionHeading";
-// import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-
-// const mainServices = [
-//   { img: svcCareer, title: "Career Counseling & Profile Evaluation", desc: "Comprehensive assessment of your academic profile, career goals, and the best study abroad options tailored to you." },
-//   { img: svcUniversity, title: "University Selection & Admission Guidance", desc: "Expert recommendations from 1000+ partner universities across 42 countries based on your unique profile." },
-//   { img: svcApplication, title: "Application & Documentation Support", desc: "End-to-end support with application essays, SOPs, LORs, and all required documentation." },
-//   { img: svcScholarship, title: "Scholarship & Financial Guidance", desc: "Maximize your funding opportunities with personalized scholarship search and application assistance." },
-//   { img: svcVisa, title: "Visa Assistance & Documentation", desc: "Complete visa application support including documentation, mock interviews, and filing." },
-//   { img: svcDeparture, title: "Pre & Post Departure Assistance", desc: "From travel bookings to airport pickup, accommodation, and settling into your new country." },
-//   { img: svcAccommodation, title: "Accommodation & Settlement Support", desc: "We help you find safe, affordable housing and adjust to life in your destination country." },
-//   { img: svcAssignment, title: "Assignment Support", desc: "Academic writing guidance and assignment support to help you excel in your studies abroad." },
-// ];
-
-// const additionalServices = [
-//   "Profile Evaluation", "Career Assessment", "Pre-visa Assistance", "Language Classes",
-//   "Free Processing for UK", "Accommodation Support", "Part-time Assistance", "Free Flight Ticket",
-//   "Assignment Assistance", "Post Departure Services", "Refer & Earn Program", "Study Material Support",
-// ];
-
-// export default function ServicesPage() {
-//   return (
-//     <main>
-//       <PageHero title="Our Services" subtitle="Comprehensive support for your global education journey" image={servicesHero} />
-
-//       <section className="section-padding bg-background">
-//         <SectionHeading title="Main Services" subtitle="Everything you need for a successful study abroad experience" />
-//         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-//           {mainServices.map((s, i) => (
-//             <MainServiceCard key={s.title} {...s} delay={i * 80} />
-//           ))}
-//         </div>
-//       </section>
-
-//       <section className="section-padding navy-gradient">
-//         <SectionHeading title="Additional Services" subtitle="Going the extra mile for our students" light />
-//         <div className="max-w-6xl mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
-//           {additionalServices.map((s) => (
-//             <div key={s} className="glass-card-dark rounded-xl p-6 text-center hover-lift">
-//               <span className="text-sm text-cream font-medium">{s}</span>
-//             </div>
-//           ))}
-//         </div>
-//       </section>
-//     </main>
-//   );
-// }
-
-// function MainServiceCard({ img, title, desc, delay }: { img: string; title: string; desc: string; delay: number }) {
-//   const { ref, isVisible } = useScrollAnimation();
-//   return (
-//     <div
-//       ref={ref}
-//       className={`glass-card rounded-2xl overflow-hidden hover-lift transition-all duration-700 group ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-//       style={{ transitionDelay: `${delay}ms` }}
-//     >
-//       <div className="aspect-[3/2] overflow-hidden">
-//         <img src={img} alt={title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" width={960} height={640} />
-//       </div>
-//       <div className="p-6">
-//         <h3 className="font-serif text-lg font-bold text-navy">{title}</h3>
-//         <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{desc}</p>
-//       </div>
-//     </div>
-//   );
-// }
-
-
-
-
-
-
-// import servicesHero from "@/assets/services-hero.jpg";
-// import PageHero from "@/components/PageHero";
-// import SectionHeading from "@/components/SectionHeading";
-// import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-
-// const mainServices = [
-//   { title: "Career Counseling & Profile Evaluation", desc: "Comprehensive assessment of your academic profile, career goals, and the best study abroad options tailored to you." },
-//   { title: "University Selection & Admission Guidance", desc: "Expert recommendations from 1000+ partner universities across 42 countries based on your unique profile." },
-//   { title: "Application & Documentation Support", desc: "End-to-end support with application essays, SOPs, LORs, and all required documentation." },
-//   { title: "Scholarship & Financial Guidance", desc: "Maximize your funding opportunities with personalized scholarship search and application assistance." },
-//   { title: "Visa Assistance & Documentation", desc: "Complete visa application support including documentation, mock interviews, and filing." },
-//   { title: "Pre & Post Departure Assistance", desc: "From travel bookings to airport pickup, accommodation, and settling into your new country." },
-//   { title: "Accommodation & Settlement Support", desc: "We help you find safe, affordable housing and adjust to life in your destination country." },
-//   { title: "Assignment Support", desc: "Academic writing guidance and assignment support to help you excel in your studies abroad." },
-// ];
-
-// const additionalServices = [
-//   "Profile Evaluation", "Career Assessment", "Pre-visa Assistance", "Language Classes",
-//   "Free Processing for UK", "Accommodation Support", "Part-time Assistance", "Free Flight Ticket",
-//   "Assignment Assistance", "Post Departure Services", "Refer & Earn Program", "Study Material Support",
-// ];
-
-// export default function ServicesPage() {
-//   return (
-//     <main className="bg-background">
-//       {/* Hero Section */}
-//       <PageHero 
-//         title="Our Services" 
-//         subtitle="Comprehensive support for your global education journey" 
-//         image={servicesHero} 
-//       />
-
-//       {/* Main Services Section - Clean Text Focus */}
-//       <section className="section-padding">
-//         <div className="container mx-auto px-4">
-//           <SectionHeading 
-//             title="Main Services" 
-//             subtitle="Expert guidance tailored to your academic and professional success" 
-//           />
-//           <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 mt-12">
-//             {mainServices.map((s, i) => (
-//               <MainServiceCard key={s.title} {...s} delay={i * 50} />
-//             ))}
-//           </div>
-//         </div>
-//       </section>
-
-//       {/* Additional Services Strip */}
-//       <section className="section-padding navy-gradient">
-//         <div className="container mx-auto px-4">
-//           <SectionHeading 
-//             title="Additional Services" 
-//             subtitle="Going the extra mile for our students" 
-//             light 
-//           />
-//           <div className="max-w-6xl mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 mt-12">
-//             {additionalServices.map((s) => (
-//               <div 
-//                 key={s} 
-//                 className="glass-card-dark rounded-xl p-6 text-center hover-lift border border-white/5 flex items-center justify-center min-h-[100px]"
-//               >
-//                 <span className="text-sm text-cream font-medium tracking-wide">{s}</span>
-//               </div>
-//             ))}
-//           </div>
-//         </div>
-//       </section>
-//     </main>
-//   );
-// }
-
-// function MainServiceCard({ title, desc, delay }: { title: string; desc: string; delay: number }) {
-//   const { ref, isVisible } = useScrollAnimation();
-
-//   return (
-//     <div
-//       ref={ref}
-//       className={`glass-card group rounded-2xl p-8 transition-all duration-700 border-l-4 border-l-transparent hover:border-l-gold hover-lift bg-white shadow-sm hover:shadow-xl ${
-//         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-//       }`}
-//       style={{ transitionDelay: `${delay}ms` }}
-//     >
-//       <div className="flex flex-col h-full">
-//         <h3 className="font-serif text-xl font-bold text-navy leading-tight group-hover:text-gold transition-colors duration-300">
-//           {title}
-//         </h3>
-//         <p className="mt-4 text-muted-foreground leading-relaxed text-sm md:text-base">
-//           {desc}
-//         </p>
-//       </div>
-//     </div>
-//   );
-// }
-
-
-
-
-
-
-
-
+import { Link } from "react-router-dom";
+import { ArrowRight, ExternalLink } from "lucide-react";
 import servicesHero from "@/assets/services-hero.jpg";
 import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
@@ -230,9 +49,18 @@ const mainServices = [
 ];
 
 const additionalServices = [
-  "Profile Evaluation", "Career Assessment", "Pre-visa Assistance", "Language Classes",
-  "Free Processing for UK", "Accommodation Support", "Part-time Assistance", "Free Flight Ticket",
-  "Assignment Assistance", "Post Departure Services", "Refer & Earn Program", "Study Material Support",
+  { name: "Profile Evaluation", img: "https://amratpal.com/uk/wp-content/uploads/2020/12/profile-evaluation1.png" },
+  { name: "Career Assessment", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnJwGHkOQ9gXlujL2je45csxW29hN069rswA&s" },
+  { name: "Pre-visa Assistance", img: "https://www.avrconsultants.org/assets/images/visa-assistance.jpg" },
+  { name: "Language Classes", img: "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&q=80&w=150&h=150" },
+  { name: "Free Processing for UK", img: "https://images.unsplash.com/photo-1526129318478-62ed807ebdf9?auto=format&fit=crop&q=80&w=150&h=150" },
+  { name: "Accommodation Support", img: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=150&h=150" },
+  { name: "Part-time Assistance", img: "https://vavremoteworkers.com/assets/blog/images/singapore/hire-a-virtual-assistant-part-time.jpg" },
+  { name: "Free Flight Ticket", img: "https://goodmockups.com/wp-content/uploads/2024/04/Free-Boarding-Pass-Air-Ticket-Mockup-PSD-2.jpg" },
+  { name: "Assignment Assistance", img: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&q=80&w=150&h=150" },
+  { name: "Post Departure Services", img: "https://images.unsplash.com/photo-1539635278303-d4002c07eae3?auto=format&fit=crop&q=80&w=150&h=150" },
+  { name: "Refer & Earn Program", img: "https://images.unsplash.com/photo-1556742044-3c52d6e88c62?auto=format&fit=crop&q=80&w=150&h=150" },
+  { name: "Study Material Support", img: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&q=80&w=150&h=150" },
 ];
 
 export default function ServicesPage() {
@@ -244,6 +72,7 @@ export default function ServicesPage() {
         image={servicesHero} 
       />
 
+      {/* Main Services Section */}
       <section className="section-padding">
         <div className="container mx-auto px-4">
           <SectionHeading 
@@ -258,20 +87,49 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <section className="section-padding navy-gradient">
+      {/* Additional Services Section */}
+      <section className="section-padding bg-white border-t border-muted/20">
         <div className="container mx-auto px-4">
           <SectionHeading 
             title="Additional Services" 
             subtitle="Going the extra mile for our students" 
-            light 
+            light={false} 
           />
-          <div className="max-w-6xl mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 mt-12">
+          
+          <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-16">
             {additionalServices.map((s) => (
               <div 
-                key={s} 
-                className="glass-card-dark rounded-xl p-6 text-center hover-lift border border-white/5 flex items-center justify-center min-h-[100px]"
+                key={s.name} 
+                className="group flex flex-col bg-white rounded-3xl overflow-hidden border border-muted/30 shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-2"
               >
-                <span className="text-sm text-cream font-medium tracking-wide">{s}</span>
+                <div className="aspect-[4/3] overflow-hidden relative">
+                  <img 
+                    src={s.img} 
+                    alt={s.name} 
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                  />
+                  <div className="absolute inset-0 bg-navy/5 group-hover:bg-transparent transition-colors duration-500" />
+                  
+                  {/* Floating Apply Now on Hover for Additional Services */}
+                  <Link 
+                    to="/contact"
+                    className="absolute bottom-4 right-4 bg-gold text-navy p-3 rounded-full opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 shadow-lg"
+                  >
+                    <ExternalLink size={18} />
+                  </Link>
+                </div>
+                
+                <div className="p-6 text-center border-t border-muted/10 bg-white flex flex-col items-center">
+                  <h4 className="text-navy font-bold text-base md:text-lg group-hover:text-gold transition-colors duration-300">
+                    {s.name}
+                  </h4>
+                  <Link 
+                    to="/contact" 
+                    className="mt-3 text-xs font-bold uppercase tracking-widest text-gold hover:text-navy transition-colors flex items-center gap-1"
+                  >
+                    Apply Now <ArrowRight size={12} />
+                  </Link>
+                </div>
               </div>
             ))}
           </div>
@@ -287,13 +145,12 @@ function MainServiceCard({ title, desc, img, delay }: { title: string; desc: str
   return (
     <div
       ref={ref}
-      className={`glass-card group rounded-2xl p-6 md:p-8 transition-all duration-700 bg-white border border-muted/20 hover:border-gold/30 shadow-sm hover:shadow-xl hover-lift ${
+      className={`group rounded-2xl p-6 md:p-8 transition-all duration-700 bg-white border border-muted/20 hover:border-gold/30 shadow-sm hover:shadow-xl hover-lift ${
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
       }`}
       style={{ transitionDelay: `${delay}ms` }}
     >
       <div className="flex flex-col sm:flex-row gap-6 items-start">
-        {/* Profile-sized Image Container */}
         <div className="flex-shrink-0">
           <div className="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-2 border-gold/20 group-hover:border-gold transition-colors duration-300">
             <img 
@@ -304,14 +161,23 @@ function MainServiceCard({ title, desc, img, delay }: { title: string; desc: str
           </div>
         </div>
 
-        {/* Content */}
-        <div className="flex flex-col">
+        <div className="flex flex-col flex-grow">
           <h3 className="font-serif text-lg md:text-xl font-bold text-navy leading-tight group-hover:text-gold transition-colors duration-300">
             {title}
           </h3>
           <p className="mt-3 text-muted-foreground leading-relaxed text-sm md:text-base">
             {desc}
           </p>
+          
+          <Link 
+            to="/contact" 
+            className="mt-6 inline-flex items-center gap-2 text-navy font-bold text-sm hover:text-gold transition-colors group/link"
+          >
+            Apply Now 
+            <span className="w-8 h-8 rounded-full bg-muted/30 flex items-center justify-center group-hover/link:bg-gold transition-colors">
+              <ArrowRight size={14} className="group-hover/link:text-navy" />
+            </span>
+          </Link>
         </div>
       </div>
     </div>

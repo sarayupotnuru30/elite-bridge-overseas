@@ -1,19 +1,39 @@
 import { useState } from "react";
-import { Phone, Mail, MapPin, Clock, Send } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, Send, ChevronDown } from "lucide-react";
 import contactHero from "@/assets/contact-hero.jpg";
 import PageHero from "@/components/PageHero";
 import { ALL_COUNTRIES } from "@/lib/countries";
 import { toast } from "@/hooks/use-toast";
+
+// Unified service list for the dropdown
+const services = [
+  "Career Counseling & Profile Evaluation",
+  "University Selection & Admission Guidance",
+  "Application & Documentation Support",
+  "Scholarship & Financial Guidance",
+  "Visa Assistance & Documentation",
+  "Pre & Post Departure Assistance",
+  "Accommodation & Settlement Support",
+  "Assignment Support",
+  "Language Classes",
+  "Refer & Earn Program"
+];
 
 const roles = ["Working", "Student", "Graduated Recently", "Unemployed"];
 const visaTypes = ["Student", "Business", "Working"];
 
 export default function ContactPage() {
   const [form, setForm] = useState({
-    name: "", address: "", phone: "", email: "",
+    name: "",
+    address: "",
+    phone: "",
+    email: "",
+    service: "", // New Field
     countries: [] as string[],
-    intakeStart: "", intakeEnd: "",
-    role: "", visaType: "",
+    intakeStart: "",
+    intakeEnd: "",
+    role: "",
+    visaType: "",
   });
 
   const [countryOpen, setCountryOpen] = useState(false);
@@ -31,13 +51,23 @@ export default function ContactPage() {
       toast({ title: "Please select at least 3 preferred countries", variant: "destructive" });
       return;
     }
-    const msg = `Hi, I need overseas education consultation.%0A%0AName: ${form.name}%0APhone: ${form.phone}%0AEmail: ${form.email}%0ACountries: ${form.countries.join(", ")}%0AIntake: ${form.intakeStart} to ${form.intakeEnd}%0ARole: ${form.role}%0AVisa: ${form.visaType}`;
+    
+    const msg = `Hi, I need overseas education consultation.%0A%0A` +
+                `*Service Needed:* ${form.service}%0A` +
+                `*Name:* ${form.name}%0A` +
+                `*Phone:* ${form.phone}%0A` +
+                `*Email:* ${form.email}%0A` +
+                `*Countries:* ${form.countries.join(", ")}%0A` +
+                `*Intake:* ${form.intakeStart} to ${form.intakeEnd}%0A` +
+                `*Role:* ${form.role}%0A` +
+                `*Visa:* ${form.visaType}`;
+
     window.open(`https://wa.me/918522916736?text=${msg}`, "_blank");
     toast({ title: "Redirecting to WhatsApp!", description: "Our team will respond shortly." });
   };
 
   const inputCls = "w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-gold/50 transition-all font-sans text-sm";
-  const selectCls = `${inputCls} appearance-none`;
+  const selectCls = `${inputCls} appearance-none cursor-pointer`;
 
   return (
     <main>
@@ -75,8 +105,25 @@ export default function ContactPage() {
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-4">
+                {/* Service Interest Dropdown */}
+                <div className="relative">
+                  <select 
+                    required 
+                    className={selectCls} 
+                    value={form.service} 
+                    onChange={(e) => setForm({ ...form, service: e.target.value })}
+                  >
+                    <option value="">Which service are you interested in?</option>
+                    {services.map((s) => (
+                      <option key={s} value={s}>{s}</option>
+                    ))}
+                  </select>
+                  <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" size={16} />
+                </div>
+
                 <input required placeholder="Full Name" className={inputCls} value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
                 <input required placeholder="Address" className={inputCls} value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} />
+                
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <input required type="tel" placeholder="Phone Number" className={inputCls} value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
                   <input required type="email" placeholder="Email" className={inputCls} value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
@@ -88,7 +135,7 @@ export default function ContactPage() {
                     <span className={form.countries.length ? "text-foreground" : "text-muted-foreground"}>
                       {form.countries.length ? `${form.countries.length} countries selected` : "Select Preferred Countries (min 3)"}
                     </span>
-                    <span className="text-muted-foreground">▼</span>
+                    <ChevronDown size={16} className="text-muted-foreground" />
                   </button>
                   {countryOpen && (
                     <div className="absolute z-20 mt-1 w-full max-h-60 overflow-y-auto bg-card border border-border rounded-lg shadow-xl p-3 grid grid-cols-2 gap-1">
@@ -103,8 +150,8 @@ export default function ContactPage() {
                   {form.countries.length > 0 && (
                     <div className="flex flex-wrap gap-1 mt-2">
                       {form.countries.map((c) => (
-                        <span key={c} className="text-xs px-2 py-1 rounded-full gold-gradient text-navy font-medium">
-                          {c} <button type="button" onClick={() => toggleCountry(c)} className="ml-1">×</button>
+                        <span key={c} className="text-xs px-2 py-1 rounded-full gold-gradient text-navy font-medium flex items-center gap-1">
+                          {c} <button type="button" onClick={() => toggleCountry(c)} className="font-bold">×</button>
                         </span>
                       ))}
                     </div>
@@ -123,17 +170,23 @@ export default function ContactPage() {
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <select required className={selectCls} value={form.role} onChange={(e) => setForm({ ...form, role: e.target.value })}>
-                    <option value="">Current Role</option>
-                    {roles.map((r) => <option key={r} value={r}>{r}</option>)}
-                  </select>
-                  <select required className={selectCls} value={form.visaType} onChange={(e) => setForm({ ...form, visaType: e.target.value })}>
-                    <option value="">Visa Type</option>
-                    {visaTypes.map((v) => <option key={v} value={v}>{v}</option>)}
-                  </select>
+                  <div className="relative">
+                    <select required className={selectCls} value={form.role} onChange={(e) => setForm({ ...form, role: e.target.value })}>
+                      <option value="">Current Role</option>
+                      {roles.map((r) => <option key={r} value={r}>{r}</option>)}
+                    </select>
+                    <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" size={16} />
+                  </div>
+                  <div className="relative">
+                    <select required className={selectCls} value={form.visaType} onChange={(e) => setForm({ ...form, visaType: e.target.value })}>
+                      <option value="">Visa Type</option>
+                      {visaTypes.map((v) => <option key={v} value={v}>{v}</option>)}
+                    </select>
+                    <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" size={16} />
+                  </div>
                 </div>
 
-                <button type="submit" className="btn-gold w-full text-base mt-2">Get Consultation via WhatsApp</button>
+                <button type="submit" className="btn-gold w-full text-base mt-2 py-4">Get Consultation via WhatsApp</button>
               </form>
             </div>
           </div>
