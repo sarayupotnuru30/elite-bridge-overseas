@@ -1,11 +1,10 @@
 import { useState } from "react";
-import { Phone, Mail, MapPin, Clock, Send, ChevronDown } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, Send, ChevronDown, X } from "lucide-react";
 import contactHero from "@/assets/contact-hero.jpg";
 import PageHero from "@/components/PageHero";
 import { ALL_COUNTRIES } from "@/lib/countries";
 import { toast } from "@/hooks/use-toast";
 
-// Unified service list for the dropdown
 const services = [
   "Career Counseling & Profile Evaluation",
   "University Selection & Admission Guidance",
@@ -16,11 +15,17 @@ const services = [
   "Accommodation & Settlement Support",
   "Assignment Support",
   "Language Classes",
-  "Refer & Earn Program"
+  "Refer & Earn Program",
+  "IELTS",
+  "TOEFL",
+  "Duolingo",
+  "PTE",
+  "GRE",
 ];
 
 const roles = ["Working", "Student", "Graduated Recently", "Unemployed"];
 const visaTypes = ["Student", "Business", "Working"];
+const intakeOptions = ["Jan-Mar", "Apr-May", "Sep-Jan", "Others"];
 
 export default function ContactPage() {
   const [form, setForm] = useState({
@@ -28,10 +33,10 @@ export default function ContactPage() {
     address: "",
     phone: "",
     email: "",
-    service: "", // New Field
+    service: "",
     countries: [] as string[],
-    intakeStart: "",
-    intakeEnd: "",
+    intake: "", 
+    otherIntake: "", 
     role: "",
     visaType: "",
   });
@@ -51,144 +56,142 @@ export default function ContactPage() {
       toast({ title: "Please select at least 3 preferred countries", variant: "destructive" });
       return;
     }
+
+    const finalIntake = form.intake === "Others" ? form.otherIntake : form.intake;
     
-    const msg = `Hi, I need overseas education consultation.%0A%0A` +
-                `*Service Needed:* ${form.service}%0A` +
-                `*Name:* ${form.name}%0A` +
-                `*Phone:* ${form.phone}%0A` +
-                `*Email:* ${form.email}%0A` +
-                `*Countries:* ${form.countries.join(", ")}%0A` +
-                `*Intake:* ${form.intakeStart} to ${form.intakeEnd}%0A` +
-                `*Role:* ${form.role}%0A` +
+    const rawMsg = `Hi, I need overseas education consultation.\n\n` +
+                `*Service Needed:* ${form.service}\n` +
+                `*Name:* ${form.name}\n` +
+                `*Address:* ${form.address}\n` +
+                `*Phone:* ${form.phone}\n` +
+                `*Email:* ${form.email}\n` +
+                `*Countries:* ${form.countries.join(", ")}\n` +
+                `*Intake (2026-2027):* ${finalIntake}\n` +
+                `*Role:* ${form.role}\n` +
                 `*Visa:* ${form.visaType}`;
 
-    window.open(`https://wa.me/918522916736?text=${msg}`, "_blank");
+    const encodedMsg = encodeURIComponent(rawMsg);
+    window.open(`https://wa.me/918522916736?text=${encodedMsg}`, "_blank");
     toast({ title: "Redirecting to WhatsApp!", description: "Our team will respond shortly." });
   };
 
-  const inputCls = "w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-gold/50 transition-all font-sans text-sm";
+  const inputCls = "w-full px-4 py-2.5 rounded-lg border border-border/60 bg-white/70 text-foreground focus:outline-none focus:ring-1 focus:ring-gold/40 transition-all font-sans text-sm placeholder:text-muted-foreground/60";
   const selectCls = `${inputCls} appearance-none cursor-pointer`;
 
   return (
-    <main>
+    <main className="bg-background">
       <PageHero title="Contact Us" subtitle="Let's start your overseas education journey together" image={contactHero} />
 
-      <section className="section-padding bg-background">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-12">
-          {/* Contact Info */}
-          <div className="lg:col-span-2 space-y-8">
-            <div>
-              <h2 className="text-3xl font-serif font-bold text-navy">Get In Touch</h2>
-              <div className="w-20 h-1 gold-gradient mt-4 rounded-full" />
-            </div>
-
-            <div className="space-y-6">
-              <InfoItem icon={Phone} title="Phone" text="8522916736" href="tel:8522916736" />
-              <InfoItem icon={Mail} title="Email" text="saikrishna@elitebridgeoverseas.com" href="mailto:saikrishna@elitebridgeoverseas.com" />
-              <InfoItem icon={MapPin} title="Main Office" text="3rd Floor GLR Complex, Canara Bank Upstairs, Arundalpet, Narasaraopet - 522601" />
-              <InfoItem icon={MapPin} title="Branch Office" text="D.No 9/6/2, 2nd Floor Canara Bank Building, Beside Old LIC Office, Arundalpet" />
-              <InfoItem icon={Clock} title="Business Hours" text="Mon–Fri: 10 AM – 8 PM | Sat–Sun: 10 AM – 5 PM" />
-            </div>
+      {/* Top Section: Get In Touch (Horizontal Blocks) */}
+      <section className="pt-16 pb-12 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-navy">Get In Touch</h2>
+            <div className="w-16 h-1 gold-gradient mx-auto mt-4 rounded-full" />
           </div>
 
-          {/* Consultation Form */}
-          <div className="lg:col-span-3">
-            <div className="glass-card rounded-2xl p-8 md:p-10">
-              <div className="flex items-center gap-3 mb-8">
-                <div className="w-12 h-12 rounded-xl gold-gradient flex items-center justify-center">
-                  <Send className="text-navy" size={20} />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+            <ContactBlock icon={Phone} title="Phone" text="+91 8522916736" href="tel:8522916736" />
+            <ContactBlock icon={Mail} title="Email" text="saikrishna@elitebridgeoverseas.com" href="mailto:saikrishna@elitebridgeoverseas.com" />
+            <ContactBlock icon={MapPin} title="Office" text="2nd Floor Canara Bank Building, Arundalpet" />
+            <ContactBlock icon={Clock} title="Hours" text="Mon–Fri: 10AM–8PM | Sat–Sun: 10AM–5PM" />
+          </div>
+        </div>
+      </section>
+
+      {/* Bottom Section: Slim & Premium Consultation Form */}
+      <section className="pb-24 px-4">
+        <div className="max-w-2xl mx-auto">
+          <div className="bg-white/40 backdrop-blur-md rounded-3xl p-6 md:p-10 shadow-2xl border border-white/40">
+            <div className="flex flex-col items-center text-center mb-8">
+              <div className="w-12 h-12 rounded-xl gold-gradient flex items-center justify-center mb-3 shadow-md">
+                <Send className="text-navy" size={20} />
+              </div>
+              <h3 className="text-2xl md:text-3xl font-serif font-bold text-navy">Consultation Form</h3>
+              <p className="text-sm text-muted-foreground mt-1">Quick submission via WhatsApp</p>
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="relative">
+                <select required className={selectCls} value={form.service} onChange={(e) => setForm({ ...form, service: e.target.value })}>
+                  <option value="">Interested Service</option>
+                  {services.map((s) => <option key={s} value={s}>{s}</option>)}
+                </select>
+                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground/60 pointer-events-none" size={16} />
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <input required placeholder="Full Name" className={inputCls} value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
+                <input required placeholder="Address" className={inputCls} value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} />
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <input required type="tel" placeholder="Phone Number" className={inputCls} value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
+                <input required type="email" placeholder="Email" className={inputCls} value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+              </div>
+
+              <div className="relative">
+                <button type="button" onClick={() => setCountryOpen(!countryOpen)} className={`${inputCls} text-left flex justify-between items-center bg-white/50`}>
+                  <span className={form.countries.length ? "text-foreground font-medium" : "text-muted-foreground/70"}>
+                    {form.countries.length ? `${form.countries.length} Selected` : "Select Countries (min 3)"}
+                  </span>
+                  <ChevronDown size={16} className="text-muted-foreground/60" />
+                </button>
+                {countryOpen && (
+                  <div className="absolute z-30 mt-1 w-full max-h-56 overflow-y-auto bg-white border border-border/40 rounded-xl shadow-2xl p-3 grid grid-cols-2 gap-1 animate-in fade-in zoom-in-95">
+                    {ALL_COUNTRIES.map((c) => (
+                      <label key={c} className="flex items-center gap-2 p-1.5 rounded-lg hover:bg-gold/5 cursor-pointer text-xs transition-colors">
+                        <input type="checkbox" checked={form.countries.includes(c)} onChange={() => toggleCountry(c)} className="w-3.5 h-3.5 accent-gold" />
+                        {c}
+                      </label>
+                    ))}
+                  </div>
+                )}
+                {form.countries.length > 0 && (
+                  <div className="flex flex-wrap gap-1.5 mt-2">
+                    {form.countries.map((c) => (
+                      <span key={c} className="text-[10px] px-2.5 py-1 rounded-full bg-navy/5 text-navy font-semibold border border-navy/10 flex items-center gap-1">
+                        {c} <X size={10} className="cursor-pointer hover:text-red-500" onClick={() => toggleCountry(c)} />
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <div className={form.intake === "Others" ? "grid grid-cols-1 md:grid-cols-2 gap-4" : "w-full"}>
+                <div className="relative">
+                  <select required className={selectCls} value={form.intake} onChange={(e) => setForm({ ...form, intake: e.target.value })}>
+                    <option value="">Intake (2026-2027)</option>
+                    {intakeOptions.map((opt) => <option key={opt} value={opt}>{opt}</option>)}
+                  </select>
+                  <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground/60 pointer-events-none" size={16} />
                 </div>
-                <div>
-                  <h3 className="text-2xl font-serif font-bold text-navy">Get Free Consultation</h3>
-                  <p className="text-sm text-muted-foreground">Fill in your details and we'll connect via WhatsApp</p>
+                {form.intake === "Others" && (
+                  <input required placeholder="Details" className={inputCls} value={form.otherIntake} onChange={(e) => setForm({ ...form, otherIntake: e.target.value })} />
+                )}
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="relative">
+                  <select required className={selectCls} value={form.role} onChange={(e) => setForm({ ...form, role: e.target.value })}>
+                    <option value="">Current Role</option>
+                    {roles.map((r) => <option key={r} value={r}>{r}</option>)}
+                  </select>
+                  <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground/60 pointer-events-none" size={16} />
+                </div>
+                <div className="relative">
+                  <select required className={selectCls} value={form.visaType} onChange={(e) => setForm({ ...form, visaType: e.target.value })}>
+                    <option value="">Visa Type</option>
+                    {visaTypes.map((v) => <option key={v} value={v}>{v}</option>)}
+                  </select>
+                  <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground/60 pointer-events-none" size={16} />
                 </div>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-4">
-                {/* Service Interest Dropdown */}
-                <div className="relative">
-                  <select 
-                    required 
-                    className={selectCls} 
-                    value={form.service} 
-                    onChange={(e) => setForm({ ...form, service: e.target.value })}
-                  >
-                    <option value="">Which service are you interested in?</option>
-                    {services.map((s) => (
-                      <option key={s} value={s}>{s}</option>
-                    ))}
-                  </select>
-                  <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" size={16} />
-                </div>
-
-                <input required placeholder="Full Name" className={inputCls} value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
-                <input required placeholder="Address" className={inputCls} value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} />
-                
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <input required type="tel" placeholder="Phone Number" className={inputCls} value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
-                  <input required type="email" placeholder="Email" className={inputCls} value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
-                </div>
-
-                {/* Countries Multi-select */}
-                <div className="relative">
-                  <button type="button" onClick={() => setCountryOpen(!countryOpen)} className={`${inputCls} text-left flex justify-between items-center`}>
-                    <span className={form.countries.length ? "text-foreground" : "text-muted-foreground"}>
-                      {form.countries.length ? `${form.countries.length} countries selected` : "Select Preferred Countries (min 3)"}
-                    </span>
-                    <ChevronDown size={16} className="text-muted-foreground" />
-                  </button>
-                  {countryOpen && (
-                    <div className="absolute z-20 mt-1 w-full max-h-60 overflow-y-auto bg-card border border-border rounded-lg shadow-xl p-3 grid grid-cols-2 gap-1">
-                      {ALL_COUNTRIES.map((c) => (
-                        <label key={c} className="flex items-center gap-2 p-1.5 rounded hover:bg-muted cursor-pointer text-sm">
-                          <input type="checkbox" checked={form.countries.includes(c)} onChange={() => toggleCountry(c)} className="accent-gold" />
-                          {c}
-                        </label>
-                      ))}
-                    </div>
-                  )}
-                  {form.countries.length > 0 && (
-                    <div className="flex flex-wrap gap-1 mt-2">
-                      {form.countries.map((c) => (
-                        <span key={c} className="text-xs px-2 py-1 rounded-full gold-gradient text-navy font-medium flex items-center gap-1">
-                          {c} <button type="button" onClick={() => toggleCountry(c)} className="font-bold">×</button>
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs text-muted-foreground mb-1 font-sans">Intake Start Date</label>
-                    <input required type="date" className={inputCls} value={form.intakeStart} onChange={(e) => setForm({ ...form, intakeStart: e.target.value })} />
-                  </div>
-                  <div>
-                    <label className="block text-xs text-muted-foreground mb-1 font-sans">Intake End Date</label>
-                    <input required type="date" className={inputCls} value={form.intakeEnd} onChange={(e) => setForm({ ...form, intakeEnd: e.target.value })} />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="relative">
-                    <select required className={selectCls} value={form.role} onChange={(e) => setForm({ ...form, role: e.target.value })}>
-                      <option value="">Current Role</option>
-                      {roles.map((r) => <option key={r} value={r}>{r}</option>)}
-                    </select>
-                    <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" size={16} />
-                  </div>
-                  <div className="relative">
-                    <select required className={selectCls} value={form.visaType} onChange={(e) => setForm({ ...form, visaType: e.target.value })}>
-                      <option value="">Visa Type</option>
-                      {visaTypes.map((v) => <option key={v} value={v}>{v}</option>)}
-                    </select>
-                    <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" size={16} />
-                  </div>
-                </div>
-
-                <button type="submit" className="btn-gold w-full text-base mt-2 py-4">Get Consultation via WhatsApp</button>
-              </form>
-            </div>
+              <button type="submit" className="btn-gold w-full text-sm font-bold mt-2 py-3 rounded-xl shadow-md hover:shadow-gold/20 transition-all flex items-center justify-center gap-2">
+                Get Consultation
+              </button>
+            </form>
           </div>
         </div>
       </section>
@@ -196,17 +199,22 @@ export default function ContactPage() {
   );
 }
 
-function InfoItem({ icon: Icon, title, text, href }: { icon: any; title: string; text: string; href?: string }) {
+function ContactBlock({ icon: Icon, title, text, href }: { icon: any; title: string; text: string; href?: string }) {
   const content = (
-    <div className="flex items-start gap-4">
-      <div className="w-12 h-12 rounded-xl gold-gradient flex items-center justify-center shrink-0">
-        <Icon className="text-navy" size={20} />
+    <div className="bg-white/60 p-5 rounded-2xl shadow-sm border border-border/50 hover:border-gold/40 hover:shadow-md transition-all h-full flex flex-col items-center text-center group">
+      <div className="w-10 h-10 rounded-full bg-gold/10 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+        <Icon className="text-gold" size={20} />
       </div>
-      <div>
-        <h4 className="font-serif font-bold text-navy">{title}</h4>
-        <p className="text-sm text-muted-foreground mt-1">{text}</p>
-      </div>
+      <h4 className="font-serif font-bold text-navy text-md mb-1">{title}</h4>
+      <p className="text-xs text-muted-foreground leading-relaxed">{text}</p>
     </div>
   );
-  return href ? <a href={href} className="block hover:opacity-80 transition-opacity">{content}</a> : <div>{content}</div>;
+  
+  return href ? (
+    <a href={href} className="block transition-transform active:scale-95">
+      {content}
+    </a>
+  ) : (
+    <div className="block">{content}</div>
+  );
 }

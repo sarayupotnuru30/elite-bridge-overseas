@@ -15,10 +15,22 @@
 //               Premier overseas education consultancy partnered with 1000+ universities across 42 countries.
 //             </p>
 //             <div className="flex gap-4 mt-6">
-//               <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-gold/30 flex items-center justify-center text-gold hover:bg-gold hover:text-navy transition-all">
+//               <a 
+//                 href="https://www.facebook.com/share/1PWaUrvSVK/" 
+//                 target="_blank" 
+//                 rel="noopener noreferrer" 
+//                 className="w-10 h-10 rounded-full border border-gold/30 flex items-center justify-center text-gold hover:bg-gold hover:text-navy transition-all"
+//                 aria-label="Facebook"
+//               >
 //                 <Facebook size={18} />
 //               </a>
-//               <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-gold/30 flex items-center justify-center text-gold hover:bg-gold hover:text-navy transition-all">
+//               <a 
+//                 href="https://www.instagram.com/elitebridgeoverseas?igsh=d2dreDdlYWhod3B0" 
+//                 target="_blank" 
+//                 rel="noopener noreferrer" 
+//                 className="w-10 h-10 rounded-full border border-gold/30 flex items-center justify-center text-gold hover:bg-gold hover:text-navy transition-all"
+//                 aria-label="Instagram"
+//               >
 //                 <Instagram size={18} />
 //               </a>
 //             </div>
@@ -111,10 +123,6 @@
 
 
 
-
-
-
-
 import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin, Facebook, Instagram, ArrowUp, Heart } from "lucide-react";
 import logo from "@/assets/logo.png";
@@ -123,24 +131,17 @@ export default function Footer() {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
-    <footer className="navy-gradient text-cream">
+    <footer className="navy-gradient text-cream relative">
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-          <div>
+          <div className="relative">
             <img src={logo} alt="Elite Bridge Overseas" className="h-16 w-auto mb-4" />
-            <p className="text-sm text-cream/70 leading-relaxed">
+            <p className="text-sm text-cream/70 leading-relaxed max-w-xs">
               Premier overseas education consultancy partnered with 1000+ universities across 42 countries.
             </p>
-            <div className="flex gap-4 mt-6">
-              <a 
-                href="https://www.facebook.com/share/1PWaUrvSVK/" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="w-10 h-10 rounded-full border border-gold/30 flex items-center justify-center text-gold hover:bg-gold hover:text-navy transition-all"
-                aria-label="Facebook"
-              >
-                <Facebook size={18} />
-              </a>
+
+            {/* Rearranged Social Icons: Vertical on Mobile, Horizontal on Desktop */}
+            <div className="flex md:flex-row flex-col gap-4 mt-6 absolute md:relative right-0 md:right-auto top-0 md:top-auto bg-navy/20 md:bg-transparent p-2 md:p-0 rounded-full border border-gold/10 md:border-none backdrop-blur-sm md:backdrop-blur-none">
               <a 
                 href="https://www.instagram.com/elitebridgeoverseas?igsh=d2dreDdlYWhod3B0" 
                 target="_blank" 
@@ -149,6 +150,15 @@ export default function Footer() {
                 aria-label="Instagram"
               >
                 <Instagram size={18} />
+              </a>
+              <a 
+                href="https://www.facebook.com/share/1PWaUrvSVK/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="w-10 h-10 rounded-full border border-gold/30 flex items-center justify-center text-gold hover:bg-gold hover:text-navy transition-all"
+                aria-label="Facebook"
+              >
+                <Facebook size={18} />
               </a>
             </div>
           </div>
@@ -203,7 +213,6 @@ export default function Footer() {
               © {new Date().getFullYear()} Elite Bridge Overseas. All rights reserved.
             </p>
             
-            {/* StaffArc Credit Section */}
             <div className="flex justify-center items-center gap-1 text-sm text-cream/70">
               Made with <Heart className="h-4 w-4 text-red-500 fill-red-500 mx-1" /> by
               <a
