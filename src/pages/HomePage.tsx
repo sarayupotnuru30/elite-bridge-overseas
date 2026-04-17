@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { Globe, Award, Compass, Star, Quote } from "lucide-react";
+import { Globe, Award, Compass, Star, Quote, ArrowRight } from "lucide-react";
 import hero1 from "@/assets/hero-1.jpg";
 import hero2 from "@/assets/hero-2.jpg";
 import hero3 from "@/assets/hero-3.jpg";
@@ -18,7 +18,15 @@ import AnimatedCounter from "@/components/AnimatedCounter";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { ALL_COUNTRIES } from "@/lib/countries";
 
-// FIXED: Using direct, verified Unsplash CDN URLs to prevent 404s
+// Test Services Data
+const testServices = [
+  { name: "IELTS", img: "https://blog.sedacollegeonline.com/wp-content/uploads/2018/12/ielts.jpg" },
+  { name: "TOEFL", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmgbljZftK67dOSit1b7Eam4HqXeMZWNGPDA&s" },
+  { name: "Duolingo", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSv4pW2NP5HrzSCoC853FtbPK0RK06TPUKmfg&s" },
+  { name: "PTE", img: "https://api.fillit.co.in/uploads/form/1738163923685.png" },
+  { name: "GRE", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0MO6lrj-BXIrEQsaGs7mGofoSpnUKZJcuFg&s" },
+];
+
 const getCountryImageUrl = (country) => {
   const imageMap = {
     "USA": "https://images.unsplash.com/photo-1485738422979-f5c462d49f74?auto=format&fit=crop&w=600&q=80",
@@ -63,11 +71,7 @@ const getCountryImageUrl = (country) => {
     "Luxembourg":"https://static.toiimg.com/thumb/48853565.cms?resizemode=75&width=1200&height=900",
     "Netherlands":"https://www.netherlands-tourism.com/wp-content/uploads/2013/11/Amsterdam.jpg",
     "Austria":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdeIuT6ajqdGVCGuQzunF3-tM8OjyGJSDuDA&s",
-
-
   };
-
-  // Fallback to a high-quality "Library/Education" image if the country isn't in the map
   return imageMap[country] || "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=600&q=80";
 };
 
@@ -139,7 +143,56 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Countries Section - RELIABLE IMAGES */}
+      {/* NEW: English Proficiency Test Services Section (Moved from Services Page) */}
+      <section className="section-padding bg-muted/30">
+        <div className="container mx-auto px-4">
+          <SectionHeading 
+            title="English Proficiency Test Services" 
+            subtitle="Master the tests required for your international university admissions" 
+            light={false}
+          />
+          
+          <div className="max-w-6xl mx-auto grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 mt-16">
+            {testServices.map((test) => (
+              <div 
+                key={test.name}
+                className="group relative bg-white rounded-2xl overflow-hidden shadow-sm border border-muted/20 hover:shadow-xl transition-all duration-500 hover:-translate-y-2"
+              >
+                <div className="aspect-[3/2] overflow-hidden">
+                  <img 
+                    src={test.img} 
+                    alt={test.name} 
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-navy/40 group-hover:bg-navy/20 transition-colors" />
+                </div>
+                <div className="absolute inset-0 flex flex-col items-center justify-center p-4">
+                  <h4 className="text-white text-xl md:text-2xl font-bold tracking-tight mb-2 drop-shadow-md">
+                    {test.name}
+                  </h4>
+                  <Link 
+                    to="/contact" 
+                    className="bg-gold text-navy text-[10px] font-bold px-3 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1"
+                  >
+                    Enquire <ArrowRight size={10} />
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-12 text-center">
+            <p className="max-w-2xl mx-auto text-muted-foreground mb-6">
+              We provide comprehensive training, mock tests, and registration assistance for all major English proficiency and entrance exams.
+            </p>
+            <Link to="/contact" className="btn-gold inline-flex items-center gap-2">
+              Book a Free Trial Class <ArrowRight size={18} />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Countries Section */}
       <section className="section-padding bg-white">
         <SectionHeading 
           title="42 Countries, Infinite Possibilities" 
@@ -152,20 +205,15 @@ export default function HomePage() {
               key={c} 
               className="group relative h-48 rounded-xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 bg-gray-200"
             >
-              {/* Background Image with Error Handling */}
               <img 
                 src={getCountryImageUrl(c)} 
                 alt={c} 
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
                 onError={(e) => {
-                  e.target.src = "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=600&q=80";
+                  e.currentTarget.src = "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=600&q=80";
                 }}
               />
-              
-              {/* Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80" />
-              
-              {/* Country Name */}
               <div className="absolute bottom-4 left-0 right-0 text-center">
                 <span className="text-[10px] md:text-xs font-bold text-white tracking-[0.2em] uppercase group-hover:text-gold transition-colors drop-shadow-lg px-2 block">
                   {c}

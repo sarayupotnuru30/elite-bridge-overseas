@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, ExternalLink, GraduationCap } from "lucide-react";
+import { ArrowRight, ExternalLink } from "lucide-react";
 import servicesHero from "@/assets/services-hero.jpg";
 import PageHero from "@/components/PageHero";
 import SectionHeading from "@/components/SectionHeading";
@@ -48,14 +48,6 @@ const mainServices = [
   },
 ];
 
-const testServices = [
-  { name: "IELTS", img: "https://blog.sedacollegeonline.com/wp-content/uploads/2018/12/ielts.jpg" },
-  { name: "TOEFL", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmgbljZftK67dOSit1b7Eam4HqXeMZWNGPDA&s" },
-  { name: "Duolingo", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSv4pW2NP5HrzSCoC853FtbPK0RK06TPUKmfg&s" },
-  { name: "PTE", img: "https://api.fillit.co.in/uploads/form/1738163923685.png" },
-  { name: "GRE", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0MO6lrj-BXIrEQsaGs7mGofoSpnUKZJcuFg&s" },
-];
-
 const additionalServices = [
   { name: "Profile Evaluation", img: "https://amratpal.com/uk/wp-content/uploads/2020/12/profile-evaluation1.png" },
   { name: "Career Assessment", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnJwGHkOQ9gXlujL2je45csxW29hN069rswA&s" },
@@ -91,55 +83,6 @@ export default function ServicesPage() {
             {mainServices.map((s, i) => (
               <MainServiceCard key={s.title} {...s} delay={i * 50} />
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* NEW: English Proficiency Test Services Section */}
-      <section className="section-padding bg-muted/30">
-        <div className="container mx-auto px-4">
-          <SectionHeading 
-            title="English Proficiency Test Services" 
-            subtitle="Master the tests required for your international university admissions" 
-            light={false}
-          />
-          
-          <div className="max-w-6xl mx-auto grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 mt-16">
-            {testServices.map((test, index) => (
-              <div 
-                key={test.name}
-                className="group relative bg-white rounded-2xl overflow-hidden shadow-sm border border-muted/20 hover:shadow-xl transition-all duration-500 hover:-translate-y-2"
-              >
-                <div className="aspect-[3/2] overflow-hidden">
-                  <img 
-                    src={test.img} 
-                    alt={test.name} 
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-navy/40 group-hover:bg-navy/20 transition-colors" />
-                </div>
-                <div className="absolute inset-0 flex flex-col items-center justify-center p-4">
-                  <h4 className="text-white text-xl md:text-2xl font-bold tracking-tight mb-2 drop-shadow-md">
-                    {test.name}
-                  </h4>
-                  <Link 
-                    to="/contact" 
-                    className="bg-gold text-navy text-[10px] font-bold px-3 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1"
-                  >
-                    Enquire <ArrowRight size={10} />
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-12 text-center">
-            <p className="max-w-2xl mx-auto text-muted-foreground mb-6">
-              We provide comprehensive training, mock tests, and registration assistance for all major English proficiency and entrance exams.
-            </p>
-            <Link to="/contact" className="btn-gold inline-flex items-center gap-2">
-              Book a Free Trial Class <ArrowRight size={18} />
-            </Link>
           </div>
         </div>
       </section>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Phone, Mail, MapPin, Clock, Send, ChevronDown, X } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, Send, ChevronDown, X, MessageCircle } from "lucide-react";
 import contactHero from "@/assets/contact-hero.jpg";
 import PageHero from "@/components/PageHero";
 import { ALL_COUNTRIES } from "@/lib/countries";
@@ -82,7 +82,7 @@ export default function ContactPage() {
     <main className="bg-background">
       <PageHero title="Contact Us" subtitle="Let's start your overseas education journey together" image={contactHero} />
 
-      {/* Top Section: Get In Touch (Horizontal Blocks) */}
+      {/* Top Section: Get In Touch */}
       <section className="pt-16 pb-12 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-10">
@@ -90,16 +90,17 @@ export default function ContactPage() {
             <div className="w-16 h-1 gold-gradient mx-auto mt-4 rounded-full" />
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 md:gap-5">
             <ContactBlock icon={Phone} title="Phone" text="+91 8522916736" href="tel:8522916736" />
+            <ContactBlock icon={MessageCircle} title="WhatsApp" text="Chat with our team" href="https://wa.me/918522916736" />
             <ContactBlock icon={Mail} title="Email" text="saikrishna@elitebridgeoverseas.com" href="mailto:saikrishna@elitebridgeoverseas.com" />
-            <ContactBlock icon={MapPin} title="Office" text="2nd Floor Canara Bank Building, Arundalpet" />
-            <ContactBlock icon={Clock} title="Hours" text="Mon–Fri: 10AM–8PM | Sat–Sun: 10AM–5PM" />
+            <ContactBlock icon={MapPin} title="Office" text="D.No 9/6/2, 3rd Floor, Canara Bank Building, Beside Old LIC Office, Narasaraopet-522601" />
+            <ContactBlock icon={Clock} title="Business Hours" text="Mon–Fri: 10AM–8PM | Sat–Sun: 10AM–5PM" />
           </div>
         </div>
       </section>
 
-      {/* Bottom Section: Slim & Premium Consultation Form */}
+      {/* Bottom Section: Consultation Form */}
       <section className="pb-24 px-4">
         <div className="max-w-2xl mx-auto">
           <div className="bg-white/40 backdrop-blur-md rounded-3xl p-6 md:p-10 shadow-2xl border border-white/40">
@@ -122,7 +123,7 @@ export default function ContactPage() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <input required placeholder="Full Name" className={inputCls} value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
-                <input required placeholder="Address" className={inputCls} value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} />
+                <input required placeholder="City/Address" className={inputCls} value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} />
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -211,7 +212,7 @@ function ContactBlock({ icon: Icon, title, text, href }: { icon: any; title: str
   );
   
   return href ? (
-    <a href={href} className="block transition-transform active:scale-95">
+    <a href={href} target={href.startsWith('http') ? "_blank" : undefined} rel="noopener noreferrer" className="block transition-transform active:scale-95">
       {content}
     </a>
   ) : (
