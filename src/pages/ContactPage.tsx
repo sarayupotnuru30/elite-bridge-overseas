@@ -94,7 +94,12 @@
 //             <ContactBlock icon={Phone} title="Phone" text="+91 8522916736" href="tel:8522916736" />
 //             <ContactBlock icon={MessageCircle} title="WhatsApp" text="Chat with our team" href="https://wa.me/918522916736" />
 //             <ContactBlock icon={Mail} title="Email" text="saikrishna@elitebridgeoverseas.com" href="mailto:saikrishna@elitebridgeoverseas.com" />
-//             <ContactBlock icon={MapPin} title="Office" text="D.No 9/6/2, 3rd Floor, Canara Bank Building, Beside Old LIC Office, Narasaraopet-522601" />
+//             <ContactBlock 
+//               icon={MapPin} 
+//               title="Office" 
+//               text="D.No 9/6/2, 3rd Floor, Canara Bank Building, Beside Old LIC Office, Narasaraopet-522601" 
+//               href="https://www.google.com/maps/place/16%C2%B014'03.3%22N+80%C2%B002'39.8%22E/@16.23425,80.0443889,17z"
+//             />
 //             <ContactBlock icon={Clock} title="Business Hours" text="Mon–Fri: 10AM–8PM | Sat–Sun: 10AM–5PM" />
 //           </div>
 //         </div>
@@ -212,7 +217,7 @@
 //   );
   
 //   return href ? (
-//     <a href={href} target={href.startsWith('http') ? "_blank" : undefined} rel="noopener noreferrer" className="block transition-transform active:scale-95">
+//     <a href={href} target={href.startsWith('http') || href.startsWith('tel') || href.startsWith('mailto') ? "_blank" : undefined} rel="noopener noreferrer" className="block transition-transform active:scale-95">
 //       {content}
 //     </a>
 //   ) : (
@@ -324,17 +329,18 @@ export default function ContactPage() {
               icon={MapPin} 
               title="Office" 
               text="D.No 9/6/2, 3rd Floor, Canara Bank Building, Beside Old LIC Office, Narasaraopet-522601" 
-              href="https://www.google.com/maps/place/16%C2%B014'03.3%22N+80%C2%B002'39.8%22E/@16.23425,80.0443889,17z"
+              href="https://www.google.com/maps/search/?api=1&query=16.234250,80.044389"
             />
             <ContactBlock icon={Clock} title="Business Hours" text="Mon–Fri: 10AM–8PM | Sat–Sun: 10AM–5PM" />
           </div>
         </div>
       </section>
 
-      {/* Bottom Section: Consultation Form */}
+      {/* Bottom Section: Consultation Form & Map */}
       <section className="pb-24 px-4">
         <div className="max-w-2xl mx-auto">
-          <div className="bg-white/40 backdrop-blur-md rounded-3xl p-6 md:p-10 shadow-2xl border border-white/40">
+          {/* Form Card */}
+          <div className="bg-white/40 backdrop-blur-md rounded-3xl p-6 md:p-10 shadow-2xl border border-white/40 mb-12">
             <div className="flex flex-col items-center text-center mb-8">
               <div className="w-12 h-12 rounded-xl gold-gradient flex items-center justify-center mb-3 shadow-md">
                 <Send className="text-navy" size={20} />
@@ -425,6 +431,20 @@ export default function ContactPage() {
               </button>
             </form>
           </div>
+
+          {/* Google Maps Embed Section - EXACT COORDINATES */}
+          <div className="w-full h-[450px] rounded-3xl overflow-hidden shadow-2xl border border-white/40">
+            <iframe
+              src="https://maps.google.com/maps?q=16.234250,80.044389&hl=es;z=14&output=embed"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Office Location"
+            />
+          </div>
         </div>
       </section>
     </main>
@@ -443,7 +463,7 @@ function ContactBlock({ icon: Icon, title, text, href }: { icon: any; title: str
   );
   
   return href ? (
-    <a href={href} target={href.startsWith('http') || href.startsWith('tel') || href.startsWith('mailto') ? "_blank" : undefined} rel="noopener noreferrer" className="block transition-transform active:scale-95">
+    <a href={href} target="_blank" rel="noopener noreferrer" className="block transition-transform active:scale-95">
       {content}
     </a>
   ) : (
